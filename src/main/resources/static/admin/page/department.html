@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../plugin/bootstrapTable-1.11.1/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="../plugin/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+
+    <script src="../plugin/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="../plugin/bootstrapTable-1.11.1/bootstrap-table.min.js"></script>
+    <script src="../plugin/sweetalert/sweetalert2.min.js"></script>
+    <script src="../plugin/soulUtils/soul_utils.js"></script>
+    <script src="../plugin/jquery-3.2.1/jquery.formautofill.min.js"></script>
+    <script src="../js/department.js"></script>
+
+</head>
+
+<body>
+<div id="depart_toolbar">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default" onclick="depart.addUI()">
+            <i class="glyphicon glyphicon-plus"></i> 添加
+        </button>
+        <button type="button" class="btn btn-default" onclick="depart.editUI()">
+            <i class="glyphicon glyphicon-pencil"></i> 修改
+        </button>
+        <button type="button" class="btn btn-default" onclick="depart.remove()">
+            <i class="glyphicon glyphicon-remove"></i> 删除
+        </button>
+        <!--<button type="button" class="btn btn-default" onclick="depart.comfirm()">-->
+            <!--<i class="glyphicon glyphicon-ok"></i> 通过审核-->
+        <!--</button>-->
+    </div>
+</div>
+
+<!--部门新增模态框-->
+<div class="modal fade" data-backdrop="static" id="depart_modal_add">
+    <!--窗口声明-->
+    <div class="modal-dialog">
+        <!--内容声明-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title"><b>添加部门</b></h4>
+            </div>
+            <div class="modal-body">
+                <form id="depart_form_add">
+                    <div class="form-group">
+                        <label>部门名称</label><input type="text" class="form-control" name="name" placeholder="请输入部门名称" />
+                    </div>
+                    <div class="form-group">
+                        <label>负责人工号</label><input type="text" class="form-control" name="staffId" placeholder="请输入负责人工号" />
+                    </div>
+                    <!-- <div class="form-group">
+                <label>性别</label>&nbsp;&nbsp;&nbsp;
+                <label class="btn btn-outline btn-info">
+                    <input type="radio" name="sex" value="-1"/>女
+                </label>
+                <label class="btn btn-outline btn-info">
+                    <input type="radio" name="sex" value="0"/>未知
+                </label>
+                <label class="btn btn-outline btn-info">
+                    <input type="radio" name="sex" value="1"/>男
+                </label>
+            </div> -->
+                    <div class="form-group">
+                        <label>部门联系电话</label><input type="text" name="mobile" class="form-control" placeholder="请输入部门联系电话" />
+                    </div>
+                    <div class="form-group">
+                        <label>上传部门图片</label></br>
+                        <input type="file" class="btn btn-default" name="pictureAddress" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" onclick="depart.add()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--部门修改模态框-->
+<div class="modal fade" data-backdrop="static" id="depart_modal_edit">
+    <!--窗口声明-->
+    <div class="modal-dialog">
+        <!--内容声明-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title"><b>修改部门</b></h4>
+            </div>
+            <div class="modal-body">
+                <form id="depart_form_edit">
+                    <!--===通过显示ID来获取ID=======-->
+                    <div class="form-group" hidden="hidden">
+                        <label >部门ID</label><input type="text" class="form-control" name="departmentId" placeholder="请输入部门ID" readonly/>
+                    </div>
+                    <!--===========================-->
+                    <div class="form-group">
+                        <label>部门名称</label><input type="text" class="form-control" name="name" placeholder="请输入部门名称" />
+                    </div>
+                    <div class="form-group">
+                        <label>负责人工号</label><input type="text" class="form-control" name="staffId" placeholder="请输入负责人工号" />
+                    </div>
+                    <div class="form-group">
+                        <label>部门联系电话</label><input type="text" class="form-control" name="mobile"  placeholder="请输入部门联系电话" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" onclick="depart.edit()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="depart_table">
+            <!--部门列表-->
+        </table>
+    </div>
+</div>
+</body>
+
+</html>

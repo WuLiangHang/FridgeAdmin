@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>请登录</title>
+    <link rel="stylesheet" type="text/css" href="../css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="../plugin/sweetalert/sweetalert2.min.css"/>
+    <script src='../plugin/jquery-3.2.1/jquery-3.2.1.min.js'></script>
+    <script src='../plugin/sweetalert/sweetalert2.min.js'></script>
+    <script src='../plugin/soulUtils/soul_utils.js'></script>
+</head>
+<body onkeydown="key_login();">
+<h1 onclick="show()">请登录</h1>
+<div class="login-form">
+    <div class="close" onclick="hide()"></div>
+    <div class="head-info">
+        <label class="lbl-1"> </label> <label class="lbl-2"> </label> <label class="lbl-3"> </label>
+    </div>
+    <div class="clear"></div>
+    <div class="avtar">
+        <img src="../images/avtar.png"/>
+    </div>
+    <form>
+        <input type="text" class="text" placeholder="请输入用户名" id="login_staff_username">
+        <div class="key">
+            <input type="password" placeholder="请输入密码" id="login_staff_password">
+        </div>
+    </form>
+    <div class="signin">
+        <input type="submit" value="登录" onclick="toLogin()">
+    </div>
+</div>
+</body>
+
+<script>
+    if (window.top !== window.self) {
+        window.top.location = window.location;
+    }
+    function key_login() {
+        if (event.keyCode == 13) {//回车键的键值为13
+            event.returnValue = false;
+            event.cancel = true;
+            toLogin();
+        }
+    }
+
+    function hide() {
+        $('.login-form').hide();
+    }
+    function show() {
+        $('.login-form').show();
+    }
+    //去登录
+    function toLogin() {
+        var username = $("#login_staff_username").val();
+        if (username == "") {
+            SwalUtil.error('请输入用户名');
+            return;
+        }
+        var password = $("#login_staff_password").val();
+        if (password == "") {
+            SwalUtil.error('请输入密码');
+            return;
+        }
+        // 判断空
+        var resp = AjaxUtil.postJson("/staff/login", {
+            username: username,
+            password: password
+        });
+        if (resp) {
+            window.localStorage.token = resp.obj.token;
+            SwalUtil.success('登录成功,正在跳转...');
+            setTimeout(function () {
+                // 延时2s后执行
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+        return false;
+    }
+</script>
+</html>
