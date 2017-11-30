@@ -18,6 +18,8 @@ public class DepartManageController extends BaseContent {
     @Autowired
     DepartmentRepository departmentRepository;
 
+
+
     //添加部门
     @PostMapping(value = "/add")
     public Resp add(Department model) {
