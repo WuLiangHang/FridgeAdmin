@@ -1,6 +1,5 @@
 package com.lysj.fridge.controller;
 
-import cn.soul.util.web.ParamUtil;
 import cn.soul.util.web.Resp;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,22 +9,22 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
-
-
 @RestController
 @RequestMapping("/upload")
 public class ResourceController {
 
-	@PostMapping("image")
-	public Resp edit(MultipartFile file, String module) {
-		if (ParamUtil.isBlack(module)) {
-			return new Resp(Resp.PARAM_ERROR, "请指定模块名!");
-		}
+	@PostMapping(value="/image")
+	public Resp edit(MultipartFile file
+//			, String module
+	) {
+//		if (ParamUtil.isBlack(module)) {
+//			return new Resp(Resp.PARAM_ERROR, "请指定模块名!");
+//		}
 		if (file == null || file.isEmpty()) {
 			return new Resp(Resp.PARAM_ERROR, "文件为空!");
 		}
 		String filename = System.currentTimeMillis() + "";
-		String path = "E:\\FApic\\" + module;
+		String path = "E:\\FApic\\";// + module;
 		String realFileName = fileUpload(file, path, filename);
 		return new Resp(Resp.SUCCESS, "图片上传成功!", realFileName);
 	}

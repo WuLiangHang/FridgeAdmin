@@ -96,6 +96,19 @@ var depart = {
             $('#depart_modal_add').modal('hide');
         }
     },
+    //12_1新增
+    // addPic : function() {
+    //     var model = new FormData($('#depart_pic_add')[0]);
+    //     // var model = $('#depart_pic_add').serialize();
+    //     var resp = AjaxUtil.postJson(AjaxUtil.url + 'departManager/add/uploadimage', model += '&token=' + this.token);
+    //     if (resp) {
+    //         SwalUtil.success(resp.msg);
+    //         $('#depart_table').bootstrapTable('refresh');
+    //         $('#depart_form_add')[0].reset();
+    //         $('#depart_modal_add').modal('hide');
+    //     }
+    // },
+
     edit : function() {
         var model = $('#depart_form_edit').serialize();
         //model是jQuery的序列化字符串，model+token值

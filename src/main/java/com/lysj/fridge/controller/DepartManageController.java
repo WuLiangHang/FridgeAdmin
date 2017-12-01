@@ -7,7 +7,6 @@ import com.lysj.fridge.domain.Department;
 import com.lysj.fridge.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by maohang on 2017/11/20.
@@ -21,8 +20,8 @@ public class DepartManageController extends BaseContent {
 
     //添加部门
     @PostMapping(value = "/add")
-    public Resp add(Department model,
-                    @RequestParam("file") MultipartFile file) {
+    public Resp add(Department model) {
+//                    , @RequestParam("file") MultipartFile file
         if (ParamUtil.isBlack(model.getName())) {
             return new Resp(Resp.PARAM_ERROR, "请输入部门名称!");
         }
@@ -40,10 +39,7 @@ public class DepartManageController extends BaseContent {
         department.setName(model.getName());
         department.setStaffId(model.getStaffId());
         department.setMobile(model.getMobile());
-        department.setPictureAddress(model.getPictureAddress());
         departmentRepository.save(department);
-//        redirectAttributes.addFlashAttribute("message",
-//                "You successfully uploaded " + file.getOriginalFilename() + "!");
         return new Resp("添加成功!");
     }
 
