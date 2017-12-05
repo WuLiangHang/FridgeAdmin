@@ -96,20 +96,57 @@ var depart = {
             $('#depart_modal_add').modal('hide');
         }
     },
-    //12_1新增
-    // addPic : function() {
-    //     var model = new FormData($('#depart_pic_add')[0]);
-    //     // var model = $('#depart_pic_add').serialize();
-    //     var resp = AjaxUtil.postJson(AjaxUtil.url + 'departManager/add/uploadimage', model += '&token=' + this.token);
-    //     if (resp) {
-    //         SwalUtil.success(resp.msg);
-    //         $('#depart_table').bootstrapTable('refresh');
-    //         $('#depart_form_add')[0].reset();
-    //         $('#depart_modal_add').modal('hide');
-    //     }
-    // },
 
-    edit : function() {
+    // uploadPic:function(){
+    // 上传设置
+//     var options = {
+//         // 规定把请求发送到那个URL
+//         url: "/upload/image",
+//         // 请求方式
+//         type: "post",
+//         // 服务器响应的数据类型
+//         dataType: "json",
+//         // 请求成功时执行的回调函数
+//         success: function(data, status, xhr) {
+//             // 图片显示地址
+//             $("#allUrl").attr("src", data.path);
+//         }
+//     };
+//     $("#depart_toolbar").ajaxSubmit(options);
+// },
+//     submit:function(){
+//     // var data = new FormData($('#form1')[0]);
+//         var data=new FormData($('#pic').val());
+//         // console.log(typeof(data));
+//     $.ajax({
+//         url: AjaxUtil.url+'upload/image',
+//         type: 'POST',
+//         data: data,
+//         dataType: 'JSON',
+//         cache: false,
+//         processData: false,
+//         contentType: false
+//     });
+//         $('#depart_modal_add').ajaxSubmit(data);
+//         SwalUtil.success("成功");
+//     return false;
+// },
+    submit:function () {
+        var option={
+            url:"${path}/upload/uploadPic.do",
+            dataType:"text",
+            success:function(responseText){
+                var jsonObj = $.parseJSON(responseText);
+                $("#imgsImgSrc").attr("src", jsonObj.realPath);
+                $("#imgs").val(jsonObj.relativePath);
+            },
+            error:function(){
+                alert("系统错误");
+            }
+        };
+        $("#form").ajaxSubmit(option);
+    },
+edit : function() {
         var model = $('#depart_form_edit').serialize();
         //model是jQuery的序列化字符串，model+token值
         var resp = AjaxUtil.postJson(AjaxUtil.url + 'departManager/edit', model += '&token=' + this.token);
