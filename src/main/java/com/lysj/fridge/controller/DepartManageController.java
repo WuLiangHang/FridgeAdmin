@@ -7,6 +7,9 @@ import com.lysj.fridge.domain.Department;
 import com.lysj.fridge.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import static com.lysj.fridge.controller.ResourceController.fileUpload;
 
 /**
  * Created by maohang on 2017/11/20.
@@ -20,7 +23,7 @@ public class DepartManageController extends BaseContent {
 
     //添加部门
     @PostMapping(value = "/add")
-    public Resp add(Department model) {
+    public Resp add(Department model,MultipartFile file) {
 //                    , @RequestParam("file") MultipartFile file
         if (ParamUtil.isBlack(model.getName())) {
             return new Resp(Resp.PARAM_ERROR, "请输入部门名称!");
@@ -34,11 +37,19 @@ public class DepartManageController extends BaseContent {
         if(departmentRepository.findByName(model.getName())!=null){
             return new Resp(Resp.PARAM_ERROR, "部门已存在!");
         }
+        if (file == null || file.isEmpty()) {
+            return new Resp(Resp.PARAM_ERROR, "文件为空!");
+        }
+        String filename = System.currentTimeMillis() + "";
+        String path = "E:\\FApic\\";// + module;
+        String realFileName = fileUpload(file, path, filename);
+//        return new Resp(Resp.SUCCESS, "图片上传成功!", realFileName);
 
         Department department=new Department();
         department.setName(model.getName());
         department.setStaffId(model.getStaffId());
         department.setMobile(model.getMobile());
+        department.setPictureAddress("");
         departmentRepository.save(department);
         return new Resp("添加成功!");
     }
